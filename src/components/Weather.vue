@@ -9,6 +9,7 @@
             <div v-if="showfulldetails !== false">
                 <p>City: {{ weather.title }}</p>
                 <div v-for="day in weather.consolidated_weather" :key="day.the_temp">
+                    <p>{{ getDayOfTheWeek(day.applicable_date) }}</p>
                     <p>Temperature: {{ day.the_temp | presentTemp }}</p>
                     <p>Maximum Temperature: {{ day.max_temp | presentTemp }}</p>
                     <p>Minimum Temperature: {{ day.min_temp | presentTemp }}</p>
@@ -16,6 +17,7 @@
                 </div>
             </div>
             <div v-else>
+                <p>{{ getDayOfTheWeek(weather.consolidated_weather[0].applicable_date) }}</p>
                 <p>Temperature: {{ weather.consolidated_weather[0].the_temp | presentTemp }}</p>
                 <p>Maximum Temperature: {{ weather.consolidated_weather[0].max_temp | presentTemp }}</p>
                 <p>Minimum Temperature: {{ weather.consolidated_weather[0].min_temp | presentTemp }}</p>
@@ -53,6 +55,11 @@
     },
 
     methods: {
+        getDayOfTheWeek: function(date) {
+            let daysOfTheWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Ssturday'];
+            return daysOfTheWeek[new Date(date).getDay()];
+        },
+
       fetchData() {
           let query = '';
           let woeid = this.woeid ? this.woeid : this.$route.params.woeid;
