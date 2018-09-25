@@ -1,13 +1,35 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+      <div class="navigation">
+        <router-link :to="{ name: 'Home' }">Home</router-link>
+        <input v-model="keyword" type="search" placeholder="Enter a city name">
+        <button v-on:click="navigateTo()">Search</button>
+        <router-view/>
+      </div>
   </div>
 </template>
 
 <script>
+import Weather from '@/components/Weather'
+import Search from '@/components/Search'
+
 export default {
-  name: 'App'
+  name: 'App',
+
+  components: {
+      Weather, Search
+  },
+
+  data: function(){
+      return {
+          keyword: ''
+      }
+  },
+  methods: {
+      navigateTo: function(){
+          this.$router.push({ path: `/search/${this.keyword}` })
+      }
+  }
 }
 </script>
 

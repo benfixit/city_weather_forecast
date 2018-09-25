@@ -9,8 +9,17 @@ module.exports = {
 
     // Paths
     assetsSubDirectory: 'static',
+    logLevel: 'debug',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      '/static': {
+        target: 'http://localhost/test_vue',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/static': ''
+        }
+      }
+    },
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
