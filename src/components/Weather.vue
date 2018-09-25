@@ -6,22 +6,22 @@
       </div>
       <div v-else>
         <div v-if="weather">
-            <div v-if="showfulldetails !== false">
-                <p>City: {{ weather.title }}</p>
-                <div v-for="day in weather.consolidated_weather" :key="day.the_temp">
-                    <p>{{ getDayOfTheWeek(day.applicable_date) }}</p>
-                    <p>Temperature: {{ day.the_temp | presentTemp }}</p>
-                    <p>Maximum Temperature: {{ day.max_temp | presentTemp }}</p>
-                    <p>Minimum Temperature: {{ day.min_temp | presentTemp }}</p>
-                    <p>Icon: <img v-bind:src="'https://www.metaweather.com/static/img/weather/' + day.weather_state_abbr + '.svg'" width="50" height="50"/></p>
+            <div v-if="showfulldetails !== false" class="full-details">
+                <p class="city">{{ weather.title }}</p>
+                <div v-for="day in weather.consolidated_weather" :key="day.the_temp" class="each-day">
+                    <p class="day-of-week">{{ getDayOfTheWeek(day.applicable_date) }}</p>
+                    <p>Temp: {{ day.the_temp | presentTemp }}</p>
+                    <p>Max: {{ day.max_temp | presentTemp }}</p>
+                    <p>Min: {{ day.min_temp | presentTemp }}</p>
+                    <p><img v-bind:src="'https://www.metaweather.com/static/img/weather/' + day.weather_state_abbr + '.svg'" width="50" height="50"/></p>
                 </div>
             </div>
-            <div v-else>
-                <p>{{ getDayOfTheWeek(weather.consolidated_weather[0].applicable_date) }}</p>
-                <p>Temperature: {{ weather.consolidated_weather[0].the_temp | presentTemp }}</p>
-                <p>Maximum Temperature: {{ weather.consolidated_weather[0].max_temp | presentTemp }}</p>
-                <p>Minimum Temperature: {{ weather.consolidated_weather[0].min_temp | presentTemp }}</p>
-                <p>Icon: <img v-bind:src="'https://www.metaweather.com/static/img/weather/' + weather.consolidated_weather[0].weather_state_abbr + '.svg'" width="50" height="50"/></p>
+            <div v-else class="basic-details">
+                <p class="city">{{ weather.title }}</p>
+                <p>Temp: {{ weather.consolidated_weather[0].the_temp | presentTemp }}</p>
+                <p>Max: {{ weather.consolidated_weather[0].max_temp | presentTemp }}</p>
+                <p>Min: {{ weather.consolidated_weather[0].min_temp | presentTemp }}</p>
+                <p><img v-bind:src="'https://www.metaweather.com/static/img/weather/' + weather.consolidated_weather[0].weather_state_abbr + '.svg'" width="50" height="50"/></p>
             </div>    
         </div>
         <div v-else>
@@ -87,3 +87,31 @@
     }
   }
 </script>
+
+<style scoped>
+    .full-details .city{
+        padding: 1% 2%; 
+        font-size: 2em; 
+        text-align: left;
+    }
+
+    .full-details .each-day{
+        width: 16%;
+        float: left;
+    }
+
+    .full-details .each-day p.day-of-week{
+        font-weight: 400;
+         color: #006;
+    }
+
+    .basic-details {
+        width: 16%;
+        float: left;
+    }
+
+    .basic-details .city{
+        font-size: 1.2em;
+        font-weight: 800;
+    }
+</style>

@@ -1,11 +1,8 @@
 <template>
-  <div class="hello">
-    <ul id="cities-list">
-     <li v-for="city in cities" :key="city.woeid">
-        <router-link :to="{ name: 'Weather', params: { woeid: city.woeid }}">{{ city.title }}</router-link>
+  <div class="home">
+    <div v-for="city in cities" :key="city.woeid" class="city">
         <weather :woeid="city.woeid" :showfulldetails="showfulldetails" v-on:click.native="$router.push(`/weather/${city.woeid}`)"></weather>
-    </li>
-    </ul>
+    </div>
   </div>
 </template>
 
@@ -38,15 +35,11 @@ export default {
 h1, h2 {
   font-weight: normal;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+
+.home .city{
+    padding-left: 1%;
+    width: 15%;
+    float: left;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+
 </style>

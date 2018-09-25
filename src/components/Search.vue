@@ -2,18 +2,14 @@
   <div v-if="loading">
       <img src="/static/loading.gif" alt="Loading"/>
   </div>
-  <div v-else>
+  <div v-else class="loaded">
       <div v-if="searchResult.length != 0">
-        <ul>
-            <li v-for="city in searchResult" :key="city.woeid">
-                <router-link :to="{ name: 'Weather', params: { woeid: city.woeid }}">{{ city.title }}</router-link>
-                <weather :woeid="city.woeid" :showfulldetails="showfulldetails"></weather>
-            </li>
-        </ul>
+        <div v-for="city in searchResult" :key="city.woeid">
+             <weather :woeid="city.woeid" :showfulldetails="showfulldetails"></weather>
+        </div>        
       </div>
       <div v-else>
-        <h4>No results were found. Try changing the keyword</h4>
-      <!--<weather :keyword="keyword"></weather>-->
+        <h4 class="no-result">No results were found. Try changing the keyword</h4>
      </div>
   </div>
 </template>
@@ -60,3 +56,10 @@ export default {
     },
 }
 </script>
+
+<style scoped>
+    .loaded .no-result{
+        color:crimson;
+    }
+</style>
+
